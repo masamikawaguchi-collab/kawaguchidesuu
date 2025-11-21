@@ -1,11 +1,4 @@
-export enum NegotiationStatus {
-  LEAD = 'リード',
-  CONTACTED = '初回接触',
-  PROPOSAL = '提案中',
-  NEGOTIATION = '交渉中',
-  CLOSED_WON = '受注',
-  CLOSED_LOST = '失注'
-}
+export type NegotiationStatus = 'リード' | '初回接触' | '提案中' | '交渉中' | '受注' | '失注';
 
 export interface Negotiation {
   id: string;

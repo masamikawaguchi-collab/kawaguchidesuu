@@ -17,7 +17,7 @@ export const NegotiationForm: React.FC<NegotiationFormProps> = ({ initialData, o
     date: new Date().toISOString().slice(0, 10),
     description: '',
     amount: 0,
-    status: NegotiationStatus.LEAD,
+    status: 'リード',
     nextActionDate: '',
     nextActionDetail: '',
     attachmentUrl: null
@@ -180,7 +180,7 @@ export const NegotiationForm: React.FC<NegotiationFormProps> = ({ initialData, o
               onChange={handleChange}
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 bg-white"
             >
-              {Object.values(NegotiationStatus).map(s => (
+              {(['リード', '初回接触', '提案中', '交渉中', '受注', '失注'] as NegotiationStatus[]).map(s => (
                 <option key={s} value={s}>{s}</option>
               ))}
             </select>

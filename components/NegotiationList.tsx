@@ -85,7 +85,7 @@ export const NegotiationList: React.FC<NegotiationListProps> = ({ negotiations, 
               onChange={(e) => setStatusFilter(e.target.value)}
             >
               <option value="ALL">全てのステータス</option>
-              {Object.values(NegotiationStatus).map(status => (
+              {(['リード', '初回接触', '提案中', '交渉中', '受注', '失注'] as NegotiationStatus[]).map(status => (
                 <option key={status} value={status}>{status}</option>
               ))}
             </select>

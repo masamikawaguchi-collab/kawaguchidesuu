@@ -111,7 +111,7 @@ export async function createNegotiation(
 
   const { data, error } = await supabase
     .from('negotiations')
-    .insert(insertData)
+    .insert(insertData as any)
     .select()
     .single();
 
@@ -120,7 +120,7 @@ export async function createNegotiation(
     throw new Error(`商談の作成に失敗しました: ${error.message}`);
   }
 
-  return mapRowToNegotiation(data);
+  return mapRowToNegotiation(data as NegotiationRow);
 }
 
 /**
@@ -134,7 +134,7 @@ export async function updateNegotiation(
 
   const { data, error } = await supabase
     .from('negotiations')
-    .update(updateData)
+    .update(updateData as any)
     .eq('id', id)
     .select()
     .single();
@@ -144,7 +144,7 @@ export async function updateNegotiation(
     throw new Error(`商談の更新に失敗しました: ${error.message}`);
   }
 
-  return mapRowToNegotiation(data);
+  return mapRowToNegotiation(data as NegotiationRow);
 }
 
 /**
@@ -230,7 +230,7 @@ export async function getMonthlyRevenueForecast(): Promise<number> {
     throw new Error(`売上予測の計算に失敗しました: ${error.message}`);
   }
 
-  return (data || []).reduce((sum, row) => sum + Number(row.amount), 0);
+  return (data || []).reduce((sum, row) => sum + Number((row as any).amount), 0);
 }
 
 /**
@@ -270,7 +270,7 @@ export async function getNegotiationCountByStatus(): Promise<Record<string, numb
   }
 
   const counts: Record<string, number> = {};
-  (data || []).forEach((row) => {
+  (data || []).forEach((row: any) => {
     counts[row.status] = (counts[row.status] || 0) + 1;
   });
 
