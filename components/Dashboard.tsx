@@ -11,9 +11,9 @@ export const Dashboard: React.FC<DashboardProps> = ({ negotiations }) => {
   // Aggregation Logic
   const stats = useMemo(() => {
     const totalAmount = negotiations.reduce((sum, n) => sum + n.amount, 0);
-    const wonCount = negotiations.filter(n => n.status === NegotiationStatus.CLOSED_WON).length;
-    const activeCount = negotiations.filter(n => 
-      [NegotiationStatus.NEGOTIATION, NegotiationStatus.PROPOSAL].includes(n.status)
+    const wonCount = negotiations.filter(n => n.status === '受注').length;
+    const activeCount = negotiations.filter(n =>
+      ['交渉中', '提案中'].includes(n.status)
     ).length;
     const totalCount = negotiations.length;
 
@@ -27,11 +27,11 @@ export const Dashboard: React.FC<DashboardProps> = ({ negotiations }) => {
       return acc;
     }, {} as Record<string, number>);
 
-    return Object.keys(NegotiationStatus).map((key) => {
-      const statusLabel = NegotiationStatus[key as keyof typeof NegotiationStatus];
+    const allStatuses: NegotiationStatus[] = ['リード', '初回接触', '提案中', '交渉中', '受注', '失注'];
+    return allStatuses.map((status) => {
       return {
-        name: statusLabel,
-        value: counts[statusLabel] || 0,
+        name: status,
+        value: counts[status] || 0,
       };
     }).filter(d => d.value > 0);
   }, [negotiations]);
